@@ -26,5 +26,5 @@ jobs:
           file: ./docker/dockerfile.backend
           push: true
           tags: |
-            manojt2003/CI-CD:latest
+            manojt2003/ci-cd:latest
             manojt2003/CI-CD:${{ github.sha }}
