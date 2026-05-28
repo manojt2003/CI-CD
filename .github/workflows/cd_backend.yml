@@ -10,6 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    strategy:
+    matrix:
+      include: 
+        - service: backend
+          file: ./docker/dockerfile.backend
+        - service: ws
+          file: ./docker/dockerfile.ws
+        - service: web
+          file: ./docker/dockerfile.web
       
     steps:
       - name: Checkout the code
@@ -29,11 +39,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: |
-            ./docker/dockerfile.backend
-            ./docker/dockerfile.ws
-            ./docker/dockerfile.web
-
+          file: ${{ matrix.file }}
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd:latest
