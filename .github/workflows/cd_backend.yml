@@ -29,7 +29,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./docker/dockerfile.backend
+          file: |
+            ./docker/dockerfile.backend
+            ./docker/dockerfile.ws
+            ./docker/dockerfile.web
+
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd:latest
